@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:text="@string/spen_to_pc"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:visibility="visible" />
+
+    <EditText
+        android:id="@+id/desktopIpEditText"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="@string/ip_address"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/connectButton"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:text="@string/connect" />
+
+    <TextView
+        android:id="@+id/connectionStatusLabel"
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        android:text="@string/connection_status_disconnected"
+        android:textAlignment="center"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/singleClickButton"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:text="@string/single_click" />
+
+    <Button
+        android:id="@+id/doubleClickButton"
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:text="@string/double_click" />
+</LinearLayout>

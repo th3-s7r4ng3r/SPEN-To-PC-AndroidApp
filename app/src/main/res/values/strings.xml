@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SPEN-To-PC</string>
+    <string name="ip_address">IP Address</string>
+    <string name="spen_to_pc">SPEN To PC</string>
+    <string name="connect">Connect</string>
+    <string name="connection_status_disconnected">Connection Status: Disconnected</string>
+    <string name="single_click">SIngle Click</string>
+    <string name="double_click">Double Click</string>
+</resources>
