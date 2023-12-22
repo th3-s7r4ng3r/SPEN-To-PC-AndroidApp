@@ -8,6 +8,7 @@ import com.th3s7r4ng3r.spen_to_pc.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
@@ -66,8 +67,12 @@ class MainActivity : AppCompatActivity() {
                 }
             } finally {
                 withContext(Dispatchers.Main) {
+                    updateMainUI()
                     binding.connectionStatusLabel.text = "Connection Status: Disconnected"
                 }
+            }
+            if (connectSuccess) {
+                sendHeartbeat() // Start sending heartbeats
             }
         }
     }
@@ -81,6 +86,30 @@ class MainActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 outputStream?.write(data.toByteArray())
+                if (data == "ping") {
+                    withContext(Dispatchers.IO) { // Wait for pong response
+                        try {
+                            withTimeout(10000) { // Timeout after 10 seconds
+                                val response = ByteArray(1024)
+                                if (String(response) == "pong") {
+                                    isConnected = true
+                                } else {
+                                    isConnected = false
+                                    updateMainUI()
+                                    withContext(Dispatchers.Main) {
+                                        Toast.makeText(this@MainActivity, "Error connecting to the server", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }
+                        } catch (e: TimeoutCancellationException) {
+                            isConnected = false
+                            updateMainUI()
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(this@MainActivity, "Error connecting to the server", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
             } catch (e: Exception) {
                 // Switch to the main thread for UI interactions
                 isConnected = false
@@ -110,13 +139,44 @@ class MainActivity : AppCompatActivity() {
                 }
             }
     }
+    private fun sendHeartbeat() {
+        GlobalScope.launch(Dispatchers.IO) {
+            while (isConnected) {
+                try {
+                    outputStream?.write("ping".toByteArray())
+                    delay(100) // Delay for 0.1 seconds
+                } catch (e: Exception) {
+                    // Handle heartbeat sending errors
+                    isConnected = false
+                    updateMainUI()
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@MainActivity, "Heartbeat error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+                    break
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 
     override fun onDestroy() {
         super.onDestroy()
-        try {
-            socket.close() // Close connection on app close
-        } catch (e: Exception) {
-            Toast.makeText(this, "Error closing the connection", Toast.LENGTH_SHORT).show()
+        GlobalScope.launch(Dispatchers.IO) {
+            try {
+                outputStream.write("connection closed".toByteArray())
+                socket.close() // Close connection on app close
+            } catch (e: Exception) {
+                Toast.makeText(this@MainActivity, "Error closing the connection", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
