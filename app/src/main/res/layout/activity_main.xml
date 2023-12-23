@@ -53,16 +53,9 @@
         android:layout_height="22dp" />
 
     <TextView
-        android:id="@+id/SpenConnection"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="@string/spen_connection_status"
-        android:textAlignment="center" />
-
-    <TextView
         android:id="@+id/SpenData"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
+        android:layout_height="31dp"
         android:text="@string/spen_data"
         android:textAlignment="center" />
 

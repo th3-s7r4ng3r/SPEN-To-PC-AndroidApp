@@ -2,16 +2,11 @@ package com.th3s7r4ng3r.spen_to_pc
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.KeyEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.samsung.android.sdk.penremote.AirMotionEvent
-import com.samsung.android.sdk.penremote.ButtonEvent
-import com.samsung.android.sdk.penremote.SpenEventListener
-import com.samsung.android.sdk.penremote.SpenRemote
-import com.samsung.android.sdk.penremote.SpenRemote.ConnectionResultCallback
-import com.samsung.android.sdk.penremote.SpenUnit
-import com.samsung.android.sdk.penremote.SpenUnitManager
 import com.th3s7r4ng3r.spen_to_pc.databinding.ActivityMainBinding
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.TimeoutCancellationException
@@ -23,18 +18,15 @@ import java.io.OutputStream
 import java.net.Socket
 
 
+@OptIn(DelicateCoroutinesApi::class)
 class MainActivity : AppCompatActivity() {
 
-    // variables related to netowrking
+    // variables related to networking
     private lateinit var binding: ActivityMainBinding
     private lateinit var socket: Socket
     private lateinit var outputStream: OutputStream
     private var isConnected = false // Track connection status
 
-    // variables related to SPEN connection
-    private var mSpenUnitManager: SpenUnitManager? = null
-    private var mButtonPressed = false
-    private var SpenConnected = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         binding.doubleClickButton.setOnClickListener {
             sendData("Double Click")
         }
-        initSpenRemote();
     }
 
     @SuppressLint("SetTextI18n")
@@ -99,7 +90,7 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.IO) {
             try {
-                outputStream?.write(data.toByteArray())
+                outputStream.write(data.toByteArray())
                 if (data == "ping") {
                     withContext(Dispatchers.IO) { // Wait for pong response
                         try {
@@ -143,6 +134,7 @@ class MainActivity : AppCompatActivity() {
                         binding.connectionStatusLabel.text = "Connection Status: Connected"
                         binding.singleClickButton.isEnabled = true
                         binding.doubleClickButton.isEnabled = true
+                        binding.connectButton.isEnabled = false
                     }
                 } else {
                     withContext(Dispatchers.Main) {
@@ -157,7 +149,7 @@ class MainActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.IO) {
             while (isConnected) {
                 try {
-                    outputStream?.write("ping".toByteArray())
+                    outputStream.write("ping".toByteArray())
                     delay(100) // Delay for 0.1 seconds
                 } catch (e: Exception) {
                     // Handle heartbeat sending errors
@@ -175,101 +167,29 @@ class MainActivity : AppCompatActivity() {
 
     // Spen connection related functions
     @SuppressLint("SetTextI18n")
-    private fun initSpenRemote() {
-        //Check whether S Pen features are supported in the device
-
-            val spenRemote = SpenRemote.getInstance()
-             if (!spenRemote.isFeatureEnabled(SpenRemote.FEATURE_TYPE_BUTTON)) {
-                 GlobalScope.launch(Dispatchers.IO) {
-                     withContext(Dispatchers.Main) {
-                         binding.SpenConnection.text = "SPen Version: Only Air Action Supported"
-                         SpenConnected = false;
-                     }
-                 }
-                return
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        when (keyCode) {
+            KeyEvent.KEYCODE_CTRL_RIGHT->  {
+                binding.SpenData.text = "SPen Data: Single Click"
+                sendData("Single Click")
             }
-
-            //Check if already connected
-            if (spenRemote.isConnected) {
-                GlobalScope.launch(Dispatchers.IO) {
-                    withContext(Dispatchers.Main) {
-                        binding.SpenConnection.text = "SPen Data: Connected!"
-                    }
-                }
-                return
+            KeyEvent.KEYCODE_CTRL_LEFT -> {
+                binding.SpenData.text = "SPen Data: Double Click"
+                sendData("Double Click")
             }
+            else -> {
+                binding.SpenData.text = "SPen Data:"
 
-            //Connect to the S Pen Framework
-            mSpenUnitManager = null
-            spenRemote.connect(this, object : ConnectionResultCallback {
-                override fun onSuccess(spenUnitManager: SpenUnitManager) {
-                    //If connection is successful, register SpenEventListener for each units.
-                    mSpenUnitManager = spenUnitManager
-                    binding.SpenConnection.text = "SPen Data: Connection established!"
-                    SpenConnected = true;
-                    initSpenEventListener()
-                }
-                override fun onFailure(e: Int) {
-                    SpenConnected = false;
-                    Toast.makeText(this@MainActivity, "SPen error: ${e}", Toast.LENGTH_SHORT).show()
-                }
-            })
-    }
-
-    private fun initSpenEventListener() {
-        val buttonUnit = mSpenUnitManager!!.getUnit(SpenUnit.TYPE_BUTTON)
-        if (buttonUnit != null) {
-            mSpenUnitManager!!.registerSpenEventListener(mSpenButtonEventListener, buttonUnit)
-        }
-    }
-
-    @SuppressLint("SetTextI18n")
-    private val mSpenButtonEventListener = SpenEventListener { spenEvent ->
-        val buttonEvent = ButtonEvent(spenEvent)
-        var pressCount = 0.0;
-
-        when (buttonEvent.action) {
-            ButtonEvent.ACTION_DOWN -> {
-                mButtonPressed = true
-                pressCount = pressCount + 1;
-            }
-            ButtonEvent.ACTION_UP -> {
-                mButtonPressed = false
-                pressCount = pressCount + 1;
             }
         }
-        GlobalScope.launch(Dispatchers.IO) {
-            withContext(Dispatchers.Main) {
-                if (pressCount == 1.0) {
-                    binding.SpenData.text = "SPen Data: Single Click"
-                } else if (pressCount > 1.0) {
-                    binding.SpenData.text = "SPen Data: Double Click"
-                    pressCount = 0.0;
-                } else {
-                    delay(200)
-                    binding.SpenData.text = "SPen Data:"
-                    pressCount = 0.0;
-                }
-            }
-        }
+        return true
     }
-
-    private fun releaseSpenRemote() {
-        val spenRemote = SpenRemote.getInstance()
-        if (spenRemote.isConnected) {
-            spenRemote.disconnect(this)
-        }
-        mSpenUnitManager = null
-    }
-
 
     override fun onDestroy() {
         super.onDestroy()
         GlobalScope.launch(Dispatchers.IO) {
             try {
                 outputStream.write("connection closed".toByteArray())
-                mButtonPressed = false
-                releaseSpenRemote();
                 socket.close() // Close connection on app close
             } catch (e: Exception) {
                 Toast.makeText(this@MainActivity, "Error closing the connection", Toast.LENGTH_SHORT).show()

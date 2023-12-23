@@ -1,12 +1,14 @@
 <resources>
-    <string name="app_name">SPEN-To-PC</string>
+    <string name="app_name">SPEN To PC</string>
     <string name="ip_address">IP Address</string>
     <string name="spen_to_pc">SPEN To PC</string>
     <string name="connect">Connect</string>
     <string name="connection_status_disconnected">Connection Status: Disconnected</string>
-    <string name="single_click">SIngle Click</string>
+    <string name="single_click">Single Click</string>
     <string name="double_click">Double Click</string>
     <string name="spen_data">Spen Data:</string>
     <string name="spen_version">Spen Version:</string>
     <string name="spen_connection_status">Spen Connection status:</string>
+    <string name="next_option">Next</string>
+    <string name="previous_option">Previous</string>
 </resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<remote-actions version="1.2" actionset_label="@string/spen_to_pc">
+    <action id="next_opt"
+        label="@string/next_option"
+        priority="1"
+        trigger_key="CTRL_RIGHT"
+        repeatable="true"
+        repeatable_interval="short">
+        <preference name="gesture" value="click"/>
+        <preference name="button_only" value="true"/>
+    </action>
+    <action id="previous_opt"
+        label="@string/previous_option"
+        priority="2"
+        trigger_key="CTRL_LEFT"
+        repeatable="true"
+        repeatable_interval="short">
+        <preference name="gesture" value="double_click"/>
+        <preference name="button_only" value="true"/>
+    </action>
+</remote-actions>
