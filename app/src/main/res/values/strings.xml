@@ -6,4 +6,7 @@
     <string name="connection_status_disconnected">Connection Status: Disconnected</string>
     <string name="single_click">SIngle Click</string>
     <string name="double_click">Double Click</string>
+    <string name="spen_data">Spen Data:</string>
+    <string name="spen_version">Spen Version:</string>
+    <string name="spen_connection_status">Spen Connection status:</string>
 </resources>
