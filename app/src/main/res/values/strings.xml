@@ -4,11 +4,11 @@
     <string name="spen_to_pc">SPEN To PC</string>
     <string name="connect">Connect</string>
     <string name="connection_status_disconnected">Connection Status: Disconnected</string>
-    <string name="single_click">Single Click</string>
-    <string name="double_click">Double Click</string>
     <string name="spen_data">Spen Data:</string>
     <string name="spen_version">Spen Version:</string>
     <string name="spen_connection_status">Spen Connection status:</string>
     <string name="next_option">Next</string>
     <string name="previous_option">Previous</string>
+    <string name="move_to_next">Move to Next</string>
+    <string name="move_to_previous">Move to Previous</string>
 </resources>

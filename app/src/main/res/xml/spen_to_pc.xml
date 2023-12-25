@@ -3,7 +3,7 @@
     <action id="next_opt"
         label="@string/next_option"
         priority="1"
-        trigger_key="CTRL_RIGHT"
+        trigger_key="NUMPAD_6">
         repeatable="true"
         repeatable_interval="short">
         <preference name="gesture" value="click"/>
@@ -12,7 +12,7 @@
     <action id="previous_opt"
         label="@string/previous_option"
         priority="2"
-        trigger_key="CTRL_LEFT"
+        trigger_key="NUMPAD_4"
         repeatable="true"
         repeatable_interval="short">
         <preference name="gesture" value="double_click"/>

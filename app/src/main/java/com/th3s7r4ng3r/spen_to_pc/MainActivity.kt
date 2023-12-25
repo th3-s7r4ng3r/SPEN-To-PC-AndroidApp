@@ -34,12 +34,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.connectButton.setOnClickListener {
-            connectToDesktop()
+            if(binding.desktopIpEditText.text.toString() != "")
+                connectToDesktop()
+            else
+                Toast.makeText(this, "Enter IP address from Desktop server", Toast.LENGTH_SHORT).show()
         }
-        binding.singleClickButton.setOnClickListener {
+        binding.nextBtn.setOnClickListener {
             sendData("Single Click")
         }
-        binding.doubleClickButton.setOnClickListener {
+        binding.prevBtn.setOnClickListener {
             sendData("Double Click")
         }
     }
@@ -55,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         // Disable the Connect button and display "Connecting..."
         binding.connectionStatusLabel.text = "Connection Status: Connecting..."
 
-        val desktopIp = binding.desktopIpEditText.text.toString()
+        val desktopIp = binding.desktopIpEditText.text.trim().toString()
         GlobalScope.launch(Dispatchers.IO) {
             var connectSuccess = false
             try {
@@ -132,15 +135,14 @@ class MainActivity : AppCompatActivity() {
                 if(isConnected) {
                     withContext(Dispatchers.Main) {
                         binding.connectionStatusLabel.text = "Connection Status: Connected"
-                        binding.singleClickButton.isEnabled = true
-                        binding.doubleClickButton.isEnabled = true
-                        binding.connectButton.isEnabled = false
+                        binding.nextBtn.isEnabled = true
+                        binding.prevBtn.isEnabled = true
                     }
                 } else {
                     withContext(Dispatchers.Main) {
                         binding.connectionStatusLabel.text = "Connection Status: Disconnected"
-                        binding.singleClickButton.isEnabled = false
-                        binding.doubleClickButton.isEnabled = false
+                        binding.nextBtn.isEnabled = false
+                        binding.prevBtn.isEnabled = false
                     }
                 }
             }
@@ -169,20 +171,19 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         when (keyCode) {
-            KeyEvent.KEYCODE_CTRL_RIGHT->  {
+            KeyEvent.KEYCODE_NUMPAD_6 -> {
                 binding.SpenData.text = "SPen Data: Single Click"
                 sendData("Single Click")
             }
-            KeyEvent.KEYCODE_CTRL_LEFT -> {
+            KeyEvent.KEYCODE_NUMPAD_4 -> {
                 binding.SpenData.text = "SPen Data: Double Click"
                 sendData("Double Click")
             }
             else -> {
                 binding.SpenData.text = "SPen Data:"
-
             }
         }
-        return true
+        return super.onKeyDown(keyCode, event);
     }
 
     override fun onDestroy() {
