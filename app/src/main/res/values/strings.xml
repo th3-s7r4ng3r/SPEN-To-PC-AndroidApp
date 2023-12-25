@@ -11,4 +11,12 @@
     <string name="previous_option">Previous</string>
     <string name="move_to_next">Move to Next</string>
     <string name="move_to_previous">Move to Previous</string>
+    <string name="Appversion">Version 1.0</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="message">Keep the app open to use Air Actions</string>
+    <string name="th3_s7r4ng3r">TH3 S7R4NG3R</string>
+    <string name="developed_by">Developed by</string>
+    <string name="github_repo">GitHub Repo</string>
+    <string name="contact_me">Contact Me</string>
+    <string name="by_me_a_coffee">By me a coffee</string>
 </resources>

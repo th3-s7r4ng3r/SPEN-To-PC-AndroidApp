@@ -1,71 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gitHubBtn"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="#000000">
 
-    <Space
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="38dp" />
+        android:layout_height="wrap_content"
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="77dp"
-        android:text="@string/spen_to_pc"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        android:visibility="visible" />
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/desktopIpEditText"
-        android:layout_width="match_parent"
-        android:layout_height="62dp"
-        android:ems="10"
-        android:hint="@string/ip_address"
-        android:inputType="text"
-        android:singleLine="true"
-        android:text=""
-        android:textAlignment="center" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="87dp" />
 
-    <Button
-        android:id="@+id/connectButton"
-        android:layout_width="match_parent"
-        android:layout_height="62dp"
-        android:text="@string/connect" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="106dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="70dp"
+            android:src="@drawable/app_logo" />
 
-    <TextView
-        android:id="@+id/connectionStatusLabel"
-        android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:text="@string/connection_status_disconnected"
-        android:textAlignment="center"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="98dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded"
+            android:backgroundTint="#2C2C2C"
+            android:padding="5dp"
+            android:text="@string/Appversion"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:visibility="visible" />
 
-    <Button
-        android:id="@+id/next_btn"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:text="@string/move_to_next"
-        android:visibility="gone" />
 
-    <Button
-        android:id="@+id/prev_btn"
-        android:layout_width="match_parent"
-        android:layout_height="63dp"
-        android:text="@string/move_to_previous"
-        android:visibility="gone" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="107dp" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="22dp" />
+        <TextView
+            android:id="@+id/connectionStatusLabel"
+            android:layout_width="143dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:background="@drawable/rounded"
+            android:backgroundTint="#471E1E"
+            android:gravity="center"
+            android:layoutDirection="inherit"
+            android:text="@string/disconnected"
+            android:textAlignment="center"
+            android:textColor="#FFC4C4"
 
-    <TextView
-        android:id="@+id/SpenData"
-        android:layout_width="match_parent"
-        android:layout_height="31dp"
-        android:text="@string/spen_data"
-        android:textAlignment="center" />
+            android:textStyle="bold" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/help_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/message"
+            android:textAlignment="center"
+            android:textColor="#C5C5C5" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="36dp" />
+
+        <EditText
+            android:id="@+id/desktopIpEditText"
+            android:layout_width="348dp"
+            android:layout_height="62dp"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:background="@drawable/input_field"
+            android:foregroundTint="@color/white"
+            android:gravity="center"
+            android:hint="@string/ip_address"
+            android:inputType="text"
+            android:layoutDirection="inherit"
+            android:singleLine="true"
+            android:text=""
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textColorHighlight="#6C6C6C"
+            android:textColorHint="#9C9C9C"
+            android:textColorLink="#E1E1E1"
+            android:textCursorDrawable="@android:color/background_light"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/connectButton"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_style"
+            android:gravity="center"
+            android:layoutDirection="inherit"
+            android:text="@string/connect"
+            android:textColor="#E1E1E1"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/next_btn"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="@string/move_to_next"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/prev_btn"
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            android:text="@string/move_to_previous"
+            android:visibility="gone" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="119dp" />
+
+        <TextView
+            android:id="@+id/SpenData"
+            android:layout_width="match_parent"
+            android:layout_height="31dp"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:gravity="center"
+            android:layoutDirection="inherit"
+            android:text="@string/spen_data"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:gravity="bottom|center"
+            android:text="@string/developed_by"
+            android:textColor="#7C7C7C"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="27dp"
+            android:gravity="bottom|center"
+            android:text="@string/th3_s7r4ng3r"
+            android:textColor="#C1C1C1"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="71dp"
+            android:layout_gravity="center"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/github_btn"
+                android:layout_width="100dp"
+                android:layout_height="27dp"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginRight="2.5dp"
+                android:layout_weight="1"
+                android:background="@drawable/footer_btn"
+                android:text="@string/github_repo"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#6A6A6A"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/contactme_btn"
+                android:layout_width="100dp"
+                android:layout_height="27dp"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginRight="2.5dp"
+                android:layout_weight="1"
+                android:background="@drawable/footer_btn"
+                android:text="@string/contact_me"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#6A6A6A"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/donate_btn"
+                android:layout_width="116dp"
+                android:layout_height="27dp"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginRight="2.5dp"
+                android:background="@drawable/footer_btn"
+                android:text="@string/by_me_a_coffee"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#6A6A6A"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
