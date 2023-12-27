@@ -1,15 +1,19 @@
 package com.th3s7r4ng3r.spen_to_pc
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.jaredrummler.android.device.DeviceName
 import com.th3s7r4ng3r.spen_to_pc.databinding.ActivityMainBinding
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -35,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     //things to do when the app is opened
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge() //display the app below the notification bar
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -65,6 +70,9 @@ class MainActivity : AppCompatActivity() {
         binding.donateBtn.setOnClickListener {
             openBrowser("donate")
         }
+        //check the device compatibility
+        checkCompatibility()
+        DeviceName.init(this)
     }
 
     @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
@@ -191,7 +199,7 @@ class MainActivity : AppCompatActivity() {
                         // styling based on the action
                         binding.connectionStatusLabel.text = "Disconnected"
                         binding.connectionStatusLabel.setTextColor(Color.parseColor("#FFC4C4"))
-                        binding.connectionStatusLabel.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#471E1E"))
+                        binding.connectionStatusLabel.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#AE6A0000"))
                         binding.connectionStatusLabel.background = resources.getDrawable(R.drawable.rounded)
 
                         // enabling the connect button
@@ -254,6 +262,70 @@ class MainActivity : AppCompatActivity() {
         }
         startActivity(intent)
     }
+
+
+    // warning popup for nun compatible devices
+    @SuppressLint("SetTextI18n")
+    private fun checkCompatibility(){
+        val modeNolList = arrayOf("SM-S918", "SM-N960", "SM-N97", "SM-N770", "SM-N98", "SM-T86", "SM-T87", "SM-T97", "SM-X70", "SM-X80", "SM-X90", "SM-X71", "SM-X81", "SM-X91")
+        val modelNameList = arrayOf("S23 Ultra", "Note9", "Note10", "Note20", "Tab S7", "Tab S8", "Tab S9")
+        val limitedCompatibleList = arrayOf("S21 Ultra", "S22 Ultra","Fold4", "Fold5","Tab S7 FE","Tab S9 FE")
+        val currentDeviceModel = Build.MODEL // Get device model from Android system
+        val currentDeviceName = DeviceName.getDeviceName() // Get the device name
+
+        var isCompatible = "none"
+
+        // check whether device is a Samsung device
+        if (currentDeviceName.contains("Galaxy", true) || currentDeviceModel.contains("SM-", true)) {
+            // check whether the device supports only SPen Pro
+            for (model in limitedCompatibleList) {
+                if (currentDeviceName.contains(model, true)) {
+                    isCompatible = "limited"
+                    break
+                }
+            }
+            // check whether the device is in the Model No list
+            if (isCompatible == "none") {
+                for (model in modeNolList) {
+                    if (currentDeviceModel.contains(model, true)) {
+                        isCompatible = "fully"
+                        break
+                    }
+                }
+            }
+            // check whether the device is in the model name list
+            if (isCompatible == "none") {
+                for (model in modelNameList) {
+                    if (currentDeviceName.contains(model, true)) {
+                        isCompatible = "fully"
+                        break
+                    }
+                }
+            }
+        }
+
+        if(isCompatible == "none"){
+            //display the incompatibility message
+            showPopup()
+            binding.incompatibilityLbl.visibility =  View.VISIBLE
+        } else if(isCompatible=="limited"){
+            //display limited compatibility message
+            Toast.makeText(this, "An SPEN Pro is required to use Air Actions", Toast.LENGTH_LONG).show()
+            binding.incompatibilityLbl.text = "An SPEN Pro is Required!"
+            binding.incompatibilityLbl.visibility =  View.VISIBLE
+        }
+    }
+    private fun showPopup(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Warning!")
+        builder.setMessage("Your Device may not compatible with the SPen Air Actions. App functionalities may not work as intended. Proceed with caution!")
+        builder.setPositiveButton("OK"){ _, _ ->
+        }
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+
 
     // disconnect and destroy resources when the app is closed
     override fun onDestroy() {

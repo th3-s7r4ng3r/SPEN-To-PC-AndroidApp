@@ -51,7 +51,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center|center_horizontal|center_vertical"
             android:background="@drawable/rounded"
-            android:backgroundTint="#471E1E"
+            android:backgroundTint="#AE6A0000"
             android:gravity="center"
             android:layoutDirection="inherit"
             android:text="@string/disconnected"
@@ -122,10 +122,6 @@
             android:text="@string/move_to_previous"
             android:visibility="gone" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="119dp" />
-
         <TextView
             android:id="@+id/SpenData"
             android:layout_width="match_parent"
@@ -137,6 +133,25 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/incompatibilityLbl"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/footer_btn"
+            android:backgroundTint="#796E5C00"
+            android:padding="5dp"
+            android:text="@string/incompatible_device_detected"
+            android:textAlignment="center"
+            android:textColor="#AEAEAE"
+            android:textSize="14sp"
+            android:visibility="invisible" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="82dp" />
 
         <TextView
             android:id="@+id/textView3"

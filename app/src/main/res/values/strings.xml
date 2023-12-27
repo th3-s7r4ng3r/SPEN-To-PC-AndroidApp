@@ -19,4 +19,5 @@
     <string name="github_repo">GitHub Repo</string>
     <string name="contact_me">Contact Me</string>
     <string name="by_me_a_coffee">By me a coffee</string>
+    <string name="incompatible_device_detected">Incompatible Device!</string>
 </resources>

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.SPENToPC" parent="Theme.AppCompat.Light.NoActionBar"/>
+    <style name="Theme.SPENToPC" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowSplashScreenBackground">@color/black</item>
+        <item name="android:windowBackground">@color/black</item>
+    </style>
+
 
 </resources>
