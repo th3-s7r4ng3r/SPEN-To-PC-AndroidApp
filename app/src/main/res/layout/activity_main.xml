@@ -5,23 +5,21 @@
     android:id="@+id/gitHubBtn"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:background="#000000">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:gravity="center"
         android:orientation="vertical">
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="87dp" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="106dp"
             android:layout_marginLeft="70dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="70dp"
             android:src="@drawable/app_logo" />
 
@@ -43,7 +41,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="107dp" />
+            android:layout_height="104dp" />
 
         <TextView
             android:id="@+id/connectionStatusLabel"
@@ -71,7 +69,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="36dp" />
+            android:layout_height="34dp" />
 
         <EditText
             android:id="@+id/desktopIpEditText"
@@ -151,12 +149,12 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="82dp" />
+            android:layout_height="80dp" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
-            android:layout_height="37dp"
+            android:layout_height="wrap_content"
             android:gravity="bottom|center"
             android:text="@string/developed_by"
             android:textColor="#7C7C7C"
@@ -173,8 +171,8 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="71dp"
-            android:layout_gravity="center"
+            android:layout_height="55dp"
+            android:layout_gravity="bottom|center"
             android:gravity="bottom"
             android:orientation="horizontal">
 

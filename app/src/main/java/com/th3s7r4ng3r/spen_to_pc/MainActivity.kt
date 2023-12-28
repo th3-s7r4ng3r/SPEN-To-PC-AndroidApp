@@ -256,7 +256,7 @@ class MainActivity : AppCompatActivity() {
         val intent = if (action == "github") {
             Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/th3-s7r4ng3r/SPEN-To-PC-AndroidApp"))
         } else if (action == "contact") {
-            Intent(Intent.ACTION_VIEW, Uri.parse("mailto:gvinura@gmail.com"))
+            Intent(Intent.ACTION_VIEW, Uri.parse("mailto:th3.s7r4ng3r@gmail.com"))
         } else {
             Intent(Intent.ACTION_VIEW, Uri.parse("https://www.buymeacoffee.com/th3.s7r4ng3r"))
         }
@@ -267,19 +267,20 @@ class MainActivity : AppCompatActivity() {
     // warning popup for nun compatible devices
     @SuppressLint("SetTextI18n")
     private fun checkCompatibility(){
-        val modeNolList = arrayOf("SM-S918", "SM-N960", "SM-N97", "SM-N770", "SM-N98", "SM-T86", "SM-T87", "SM-T97", "SM-X70", "SM-X80", "SM-X90", "SM-X71", "SM-X81", "SM-X91")
-        val modelNameList = arrayOf("S23 Ultra", "Note9", "Note10", "Note20", "Tab S7", "Tab S8", "Tab S9")
-        val limitedCompatibleList = arrayOf("S21 Ultra", "S22 Ultra","Fold4", "Fold5","Tab S7 FE","Tab S9 FE")
+        val modeNolList = arrayOf("SM-S908", "SC-52C", "SCG14", "SM-S918", "SM-N960", "SM-N97", "SM-N770", "SM-N98", "SM-T86", "SM-T87", "SM-T97", "SM-X70", "SM-X80", "SM-X90", "SM-X71", "SM-X81", "SM-X91")
+        val modelNameList = arrayOf("S22 Ultra","S23 Ultra", "Note9", "Note10", "Note20", "Tab S7", "Tab S8", "Tab S9")
+        //val limitedCompatibleList = arrayOf("S21 Ultra", "Fold3", "Fold4", "Fold5","Tab S7 FE","Tab S9 FE")
+        val limitedCompatibleList = arrayOf("SM-G998", "SC-52B","SM-F926","SC-55B","SCG11","SM-F936","SCG16","SC-55C","SM-F946","SC-55D","SCG22", "SM-T73", "SM-X51", "SM-X61", "SCT22")
         val currentDeviceModel = Build.MODEL // Get device model from Android system
         val currentDeviceName = DeviceName.getDeviceName() // Get the device name
 
         var isCompatible = "none"
 
         // check whether device is a Samsung device
-        if (currentDeviceName.contains("Galaxy", true) || currentDeviceModel.contains("SM-", true)) {
+        if (currentDeviceName.contains("Galaxy", true) || currentDeviceModel.contains("SM-", true) || currentDeviceModel.contains("SC", true)) {
             // check whether the device supports only SPen Pro
             for (model in limitedCompatibleList) {
-                if (currentDeviceName.contains(model, true)) {
+                if (currentDeviceModel.contains(model, true)) {
                     isCompatible = "limited"
                     break
                 }
