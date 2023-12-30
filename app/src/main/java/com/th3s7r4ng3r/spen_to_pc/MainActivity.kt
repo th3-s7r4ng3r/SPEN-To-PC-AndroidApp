@@ -254,7 +254,7 @@ class MainActivity : AppCompatActivity() {
     //handling the footer links clicks
     private fun openBrowser(action: String) {
         val intent = if (action == "github") {
-            Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/th3-s7r4ng3r/SPEN-To-PC-AndroidApp"))
+            Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/th3-s7r4ng3r/SPEN-To-PC-AndroidApp/releases"))
         } else if (action == "contact") {
             Intent(Intent.ACTION_VIEW, Uri.parse("mailto:th3.s7r4ng3r@gmail.com"))
         } else {

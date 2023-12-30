@@ -178,7 +178,7 @@
 
             <Button
                 android:id="@+id/github_btn"
-                android:layout_width="100dp"
+                android:layout_width="130dp"
                 android:layout_height="27dp"
                 android:layout_marginLeft="2.5dp"
                 android:layout_marginRight="2.5dp"
