@@ -7,11 +7,9 @@
     <string name="spen_data">Spen Data:</string>
     <string name="spen_version">Spen Version:</string>
     <string name="spen_connection_status">Spen Connection status:</string>
-    <string name="next_option">Next</string>
-    <string name="previous_option">Previous</string>
     <string name="move_to_next">Move to Next</string>
     <string name="move_to_previous">Move to Previous</string>
-    <string name="Appversion">Version 1.0</string>
+    <string name="Appversion">Version </string>
     <string name="disconnected">Disconnected</string>
     <string name="message">Keep the app open to use Air Actions</string>
     <string name="th3_s7r4ng3r">TH3 S7R4NG3R</string>
@@ -20,4 +18,12 @@
     <string name="contact_me">Contact Me</string>
     <string name="by_me_a_coffee">By me a coffee</string>
     <string name="incompatible_device_detected">Incompatible Device!</string>
+    <string name="action_01">Action 01</string>
+    <string name="action_02">Action 02</string>
+    <string name="action_03">Action 03</string>
+    <string name="action_04">Action 04</string>
+    <string name="action_05">Action 05</string>
+    <string name="action_06">Action 06</string>
+    <string name="action_07">Action 07</string>
+    <string name="action_08">Action 08</string>
 </resources>

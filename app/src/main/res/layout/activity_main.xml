@@ -24,7 +24,7 @@
             android:src="@drawable/app_logo" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/versionID"
             android:layout_width="98dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_horizontal|center_vertical"

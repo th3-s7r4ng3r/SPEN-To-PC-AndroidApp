@@ -1,21 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <remote-actions version="1.2" actionset_label="@string/spen_to_pc">
-    <action id="next_opt"
-        label="@string/next_option"
+    <action id="single_clk"
+        label="@string/action_01"
         priority="1"
         trigger_key="NUMPAD_6">
         repeatable="true"
         repeatable_interval="short">
         <preference name="gesture" value="click"/>
-        <preference name="button_only" value="true"/>
     </action>
-    <action id="previous_opt"
-        label="@string/previous_option"
+    <action id="double_clk"
+        label="@string/action_02"
         priority="2"
         trigger_key="NUMPAD_4"
         repeatable="true"
         repeatable_interval="short">
         <preference name="gesture" value="double_click"/>
-        <preference name="button_only" value="true"/>
+    </action>
+    <action id="sw_left"
+        label="@string/action_05"
+        priority="5"
+        trigger_key="NUMPAD_1"
+        repeatable="true"
+        repeatable_interval="short">
+        <preference name="gesture" value="swipe_left"/>
+    </action>
+    <action id="sw_right"
+        label="@string/action_06"
+        priority="6"
+        trigger_key="NUMPAD_3"
+        repeatable="true"
+        repeatable_interval="short">
+        <preference name="gesture" value="swipe_right"/>
+    </action>
+    <action id="sw_up"
+        label="@string/action_03"
+        priority="3"
+        trigger_key="NUMPAD_8"
+        repeatable="true"
+        repeatable_interval="short">
+        <preference name="gesture" value="swipe_up"/>
+    </action>
+    <action id="sw_down"
+        label="@string/action_04"
+        priority="4"
+        trigger_key="NUMPAD_2"
+        repeatable="true"
+        repeatable_interval="short">
+        <preference name="gesture" value="swipe_down"/>
+    </action>
+    <action id="cl_counterClockWise"
+        label="@string/action_08"
+        priority="8"
+        trigger_key="NUMPAD_7"
+        repeatable="true"
+        repeatable_interval="short">
+        <preference name="gesture" value="circle_ccw"/>
+    </action>
+    <action id="cl_clockWise"
+        label="@string/action_07"
+        priority="7"
+        trigger_key="NUMPAD_9"
+        repeatable="true"
+        repeatable_interval="short">
+        <preference name="gesture" value="circle_cw"/>
     </action>
 </remote-actions>

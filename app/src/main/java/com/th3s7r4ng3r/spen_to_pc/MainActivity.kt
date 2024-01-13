@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var socket: Socket
     private lateinit var outputStream: OutputStream
     private var isConnected = false // Track connection status
+    private var appVersion = " 1.1"
 
     //things to do when the app is opened
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -174,6 +175,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
     private fun updateMainUI(){
             GlobalScope.launch(Dispatchers.IO) {
+                binding.versionID.text = binding.versionID.text.toString() + appVersion
                 if(isConnected) {
                     withContext(Dispatchers.Main) {
                         // only for testing
@@ -232,17 +234,41 @@ class MainActivity : AppCompatActivity() {
 
 
     // Spen connection related functions
-    // handling the spen clicked
+    // handling the spen actions
     @SuppressLint("SetTextI18n")
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         when (keyCode) {
             KeyEvent.KEYCODE_NUMPAD_6 -> {
                 binding.SpenData.text = "SPen Data: Single Click"
-                sendData("Single Click")
+                sendData("single_clk")
             }
             KeyEvent.KEYCODE_NUMPAD_4 -> {
                 binding.SpenData.text = "SPen Data: Double Click"
-                sendData("Double Click")
+                sendData("double_clk")
+            }
+            KeyEvent.KEYCODE_NUMPAD_1 -> {
+                binding.SpenData.text = "SPen Data: Swipe Left"
+                sendData("sw_left")
+            }
+            KeyEvent.KEYCODE_NUMPAD_3 -> {
+                binding.SpenData.text = "SPen Data: Swipe Right"
+                sendData("sw_right")
+            }
+            KeyEvent.KEYCODE_NUMPAD_8 -> {
+                binding.SpenData.text = "SPen Data: Swipe Up"
+                sendData("sw_up")
+            }
+            KeyEvent.KEYCODE_NUMPAD_2 -> {
+                binding.SpenData.text = "SPen Data: Swipe Down"
+                sendData("sw_down")
+            }
+            KeyEvent.KEYCODE_NUMPAD_7 -> {
+                binding.SpenData.text = "SPen Data: Counter Clock Wise"
+                sendData("cl_counterClockWise")
+            }
+            KeyEvent.KEYCODE_NUMPAD_9 -> {
+                binding.SpenData.text = "SPen Data: Clock Wise"
+                sendData("cl_clockWise")
             }
             else -> {
                 binding.SpenData.text = "SPen Data:"
