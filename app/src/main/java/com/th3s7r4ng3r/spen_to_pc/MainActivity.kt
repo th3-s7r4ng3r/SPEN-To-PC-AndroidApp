@@ -8,6 +8,8 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper;
 import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
@@ -35,7 +37,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var socket: Socket
     private lateinit var outputStream: OutputStream
     private var isConnected = false // Track connection status
-    private var appVersion = " 1.1"
+    private var appVersion = "1.1"
+    private var handler: Handler? = null
+    private val apiData = GetFromAPI()
 
     //things to do when the app is opened
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +48,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         updateMainUI()
+        handler = Handler(Looper.getMainLooper());
 
         // actions for connect button
         binding.connectButton.setOnClickListener {
@@ -71,9 +77,15 @@ class MainActivity : AppCompatActivity() {
         binding.donateBtn.setOnClickListener {
             openBrowser("donate")
         }
+
         //check the device compatibility
         checkCompatibility()
         DeviceName.init(this)
+
+        // Run checkForUpdate after a delay
+        handler!!.postDelayed({
+            checkForUpdate()
+        }, 1000)
     }
 
     @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
@@ -175,7 +187,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
     private fun updateMainUI(){
             GlobalScope.launch(Dispatchers.IO) {
-                binding.versionID.text = binding.versionID.text.toString() + appVersion
+                binding.versionID.text = binding.versionID.text.toString() + " " + appVersion
                 if(isConnected) {
                     withContext(Dispatchers.Main) {
                         // only for testing
@@ -333,7 +345,7 @@ class MainActivity : AppCompatActivity() {
 
         if(isCompatible == "none"){
             //display the incompatibility message
-            showPopup()
+            showPopup("incompatible")
             binding.incompatibilityLbl.visibility =  View.VISIBLE
         } else if(isCompatible=="limited"){
             //display limited compatibility message
@@ -342,16 +354,35 @@ class MainActivity : AppCompatActivity() {
             binding.incompatibilityLbl.visibility =  View.VISIBLE
         }
     }
-    private fun showPopup(){
+    private fun showPopup(type:String){
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Warning!")
-        builder.setMessage("Your Device may not compatible with the SPen Air Actions. App functionalities may not work as intended. Proceed with caution!")
-        builder.setPositiveButton("OK"){ _, _ ->
+        if (type == "update") {
+            builder.setTitle("Update Available!")
+            builder.setMessage("New version of the SPEN To PC has been released with following changes:\n\n" + apiData.appChangedLog + "\n\n Press \"Check for Updates\" to download")
+            builder.setPositiveButton("OK") { _, _ ->
+            }
         }
+        if(type=="incompatible"){
+            builder.setTitle("Warning!")
+            builder.setMessage("Your Device may not compatible with the SPen Air Actions. App functionalities may not work as intended. Proceed with caution!")
+            builder.setPositiveButton("OK"){ _, _ ->
+            }
+        }
+
         val dialog = builder.create()
         dialog.show()
     }
 
+    // check for app update
+    private fun checkForUpdate(){
+        val serverVersion = apiData.appVersion
+        val status = apiData.dataRetrieved
+        if(status == "true") {
+            if (!appVersion.equals(serverVersion, true)) {
+                showPopup("update")
+            }
+        }
+    }
 
 
     // disconnect and destroy resources when the app is closed
