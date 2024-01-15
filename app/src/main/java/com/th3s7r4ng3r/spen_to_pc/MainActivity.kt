@@ -42,12 +42,14 @@ class MainActivity : AppCompatActivity() {
     private val apiData = GetFromAPI()
 
     //things to do when the app is opened
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge() //display the app below the notification bar
 
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.versionID.text = binding.versionID.text.toString() + " " + appVersion
 
         updateMainUI()
         handler = Handler(Looper.getMainLooper());
@@ -187,7 +189,6 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
     private fun updateMainUI(){
             GlobalScope.launch(Dispatchers.IO) {
-                binding.versionID.text = binding.versionID.text.toString() + " " + appVersion
                 if(isConnected) {
                     withContext(Dispatchers.Main) {
                         // only for testing
@@ -252,11 +253,11 @@ class MainActivity : AppCompatActivity() {
         when (keyCode) {
             KeyEvent.KEYCODE_NUMPAD_6 -> {
                 binding.SpenData.text = "SPen Data: Single Click"
-                sendData("single_clk")
+                sendData("Single Click")    // sent data kept same to backward compatible with Old version of windows app
             }
             KeyEvent.KEYCODE_NUMPAD_4 -> {
                 binding.SpenData.text = "SPen Data: Double Click"
-                sendData("double_clk")
+                sendData("Double Click")
             }
             KeyEvent.KEYCODE_NUMPAD_1 -> {
                 binding.SpenData.text = "SPen Data: Swipe Left"
@@ -357,9 +358,9 @@ class MainActivity : AppCompatActivity() {
     private fun showPopup(type:String){
         val builder = AlertDialog.Builder(this)
         if (type == "update") {
-            builder.setTitle("Update Available!")
-            builder.setMessage("New version of the SPEN To PC has been released with following changes:\n\n" + apiData.appChangedLog + "\n\n Press \"Check for Updates\" to download")
-            builder.setPositiveButton("OK") { _, _ ->
+            builder.setTitle(apiData.popupTitle)
+            builder.setMessage(apiData.popupMessage)
+            builder.setPositiveButton(apiData.popupButton) { _, _ ->
             }
         }
         if(type=="incompatible"){

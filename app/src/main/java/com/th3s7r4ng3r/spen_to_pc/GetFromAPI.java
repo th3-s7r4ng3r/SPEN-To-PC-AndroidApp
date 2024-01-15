@@ -9,7 +9,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class GetFromAPI {
     // defining instance variables
     public String appVersion;
-    public String appChangedLog;
+    public String popupMessage;
+    public String popupTitle;
+    public String popupButton;
     public String dataRetrieved = "false";
 
     //class constructor
@@ -36,7 +38,10 @@ public class GetFromAPI {
                     if (resultObject != null) {
                         dataRetrieved = "true";
                         appVersion = resultObject.getAndroidVersion();
-                        appChangedLog = resultObject.getAndroidChangedLog();
+                        popupTitle = resultObject.getAndroidTitle();
+                        popupMessage = resultObject.getAndroidMessage();
+                        popupButton = resultObject.getAndroidPositive();
+
                     }
                 } else {
                     dataRetrieved = "empty object";

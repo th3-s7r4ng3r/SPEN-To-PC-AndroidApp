@@ -3,25 +3,32 @@ import com.google.gson.annotations.SerializedName;
 
 public class AppData {
     // defining instance variables
-    @SerializedName("windowsVersion")
-    private String windowsVersion;
-    @SerializedName("windowsChangedLog")
-    private String windowsChangedLog;
     @SerializedName("androidVersion")
     private String androidVersion;
-    @SerializedName("androidChangedLog")
-    private String androidChangedLog;
+    @SerializedName("androidTitle")
+    private String androidTitle;
+    @SerializedName("androidMessage")
+    private String androidMessage;
+    @SerializedName("androidPositive")
+    private String androidPositive;
+    @SerializedName("windowsVersion")
+    private String windowsVersion;
+    @SerializedName("windowsTitle")
+    private String windowsTitle;
+    @SerializedName("windowsMessage")
+    private String windowsMessage;
+    @SerializedName("windowsPositive")
+    private String windowsPositive;
 
 
     //defining getter methods
     public String getAndroidVersion(){
         return androidVersion;
     }
-    public String getWindowsChangedLog() {
-        return windowsChangedLog;
+    public  String getAndroidMessage(){
+        return  androidMessage;
     }
-    public  String getAndroidChangedLog(){
-        return  androidChangedLog;
-    }
+    public String getAndroidTitle() { return androidTitle;}
+    public String getAndroidPositive() {return androidPositive;}
 
 }
