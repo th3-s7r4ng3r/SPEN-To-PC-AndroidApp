@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The SPEN To PC Android App is a Kotlin-based application designed for remote control of a desktop computer using SPen Air Actions. This technical overview provides insights into special components, development setup, prerequisites, and acknowledgments.
+The SPEN To PC Android App is a Kotlin-based application designed for remote control of a desktop computer using SPen Air Actions. This technical overview provides insights into special components, development setup, and acknowledgments.
 
 **For the Complete Guide:**  [SPEN To PC Wiki](https://github.com/th3-s7r4ng3r/SPEN-To-PC-WindowsApp/wiki)
 
@@ -13,8 +13,8 @@ The app relies on networking components for communication:
 
  - **Socket:** Establishes a persistent connection between the Android
    device and the desktop.
- - **OutputStream:** Enables the transmission of data streams to the
-   connected desktop.
+ - **OutputStream:** Enables the transmission of data streams to the connected desktop.
+ - **Check Updates:** At the event of launching the application, it checks the [backend server](https://github.com/th3-s7r4ng3r/SPEN-To-PC-Backend) for updates.
 
 **Coroutines for Asynchronous Operations**
 The app utilizes Kotlin coroutines to manage asynchronous operations efficiently. This ensures responsive behavior and optimal resource utilization.
@@ -31,11 +31,12 @@ The app utilizes Kotlin coroutines to manage asynchronous operations efficiently
 The app utilizes external libraries for enhanced functionality:
 
  - **Jared Rummler's DeviceName:** Retrieves the device name dynamically.
-- **Coroutine:** DelicateCoroutinesApi is used for asynchronous operations.
+ - **Coroutine:** DelicateCoroutinesApi is used for asynchronous operations.
 
 ## Contact and Support
 
-For inquiries, feedback, or support, developers can reach out through the following channels: **Email:** [th3.s7r4ng3r@gmail.com](mailto:th3.s7r4ng3r@gmail.com)
+For inquiries, feedback, or support, developers can reach out through the following channels: 
+**Email:** [th3.s7r4ng3r@gmail.com](mailto:th3.s7r4ng3r@gmail.com)
 
 
 ## Acknowledgment
