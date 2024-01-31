@@ -12,6 +12,7 @@ import android.os.Handler
 import android.os.Looper;
 import android.view.KeyEvent
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var socket: Socket
     private lateinit var outputStream: OutputStream
     private var isConnected = false // Track connection status
-    private var appVersion = "1.1"
+    private var appVersion = "1.1a"
     private var handler: Handler? = null
     private val apiData = GetFromAPI()
 
@@ -191,6 +192,9 @@ class MainActivity : AppCompatActivity() {
             GlobalScope.launch(Dispatchers.IO) {
                 if(isConnected) {
                     withContext(Dispatchers.Main) {
+                        // keeping the screen on when the connection is established
+                        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
                         // only for testing
                         binding.nextBtn.isEnabled = true
                         binding.prevBtn.isEnabled = true
@@ -207,6 +211,9 @@ class MainActivity : AppCompatActivity() {
                     }
                 } else {
                     withContext(Dispatchers.Main) {
+                        // set screen to switch off when disconnected
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
                         // only for testing
                         binding.nextBtn.isEnabled = false
                         binding.prevBtn.isEnabled = false
@@ -306,8 +313,8 @@ class MainActivity : AppCompatActivity() {
     // warning popup for nun compatible devices
     @SuppressLint("SetTextI18n")
     private fun checkCompatibility(){
-        val modeNolList = arrayOf("SM-S908", "SC-52C", "SCG14", "SM-S918", "SM-N960", "SM-N97", "SM-N770", "SM-N98", "SM-T86", "SM-T87", "SM-T97", "SM-X70", "SM-X80", "SM-X90", "SM-X71", "SM-X81", "SM-X91")
-        val modelNameList = arrayOf("S22 Ultra","S23 Ultra", "Note9", "Note10", "Note20", "Tab S7", "Tab S8", "Tab S9")
+        val modeNolList = arrayOf("SM-S908", "SC-52C", "SCG14", "SM-S918","SM-S928", "SM-N960", "SM-N97", "SM-N770", "SM-N98", "SM-T86", "SM-T87", "SM-T97", "SM-X70", "SM-X80", "SM-X90", "SM-X71", "SM-X81", "SM-X91")
+        val modelNameList = arrayOf("S22 Ultra","S23 Ultra","S24 Ultra", "Note9", "Note10", "Note20", "Tab S7", "Tab S8", "Tab S9")
         //val limitedCompatibleList = arrayOf("S21 Ultra", "Fold3", "Fold4", "Fold5","Tab S7 FE","Tab S9 FE")
         val limitedCompatibleList = arrayOf("SM-G998", "SC-52B","SM-F926","SC-55B","SCG11","SM-F936","SCG16","SC-55C","SM-F946","SC-55D","SCG22", "SM-T73", "SM-X51", "SM-X61", "SCT22")
         val currentDeviceModel = Build.MODEL // Get device model from Android system
